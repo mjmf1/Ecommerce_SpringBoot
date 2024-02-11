@@ -1,13 +1,24 @@
 package com.proyecto.ecommerce.springecommerce.model;
 
-import java.util.Date;
+import jakarta.persistence.*;
 
+import java.util.Date;
+@Entity
+@Table(name = "ordenes")
 public class Orden {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
     private String numero;
     private Date fechaCreacion;
     private Date fechaRecbida;
     private double total;
+
+    @ManyToOne
+    private  usuario usuario;
+
+    @OneToOne(mappedBy = "orden")
+    private DetalleOrden detalle;
 
     public Orden(){
 
@@ -60,6 +71,26 @@ public class Orden {
     public void setTotal(double total) {
         this.total = total;
     }
+
+
+    public com.proyecto.ecommerce.springecommerce.model.usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(com.proyecto.ecommerce.springecommerce.model.usuario usuario) {
+        this.usuario = usuario;
+    }
+
+
+    public DetalleOrden getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(DetalleOrden detalle) {
+        this.detalle = detalle;
+    }
+
+
 
     @Override
     public String toString() {
