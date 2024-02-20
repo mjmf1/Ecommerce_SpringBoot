@@ -83,7 +83,7 @@ public class producto {
         return usuario;
     }
 
-    public void setUsuario(com.proyecto.ecommerce.springecommerce.model.usuario usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
