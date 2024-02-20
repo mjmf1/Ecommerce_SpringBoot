@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Integer id;
+    private Integer id;
     private String nombre;
     private String descripcion;
     private String imagen;
@@ -15,13 +15,14 @@ public class producto {
     private int cantidad;
 
     @ManyToOne
-    private  usuario usuario;
+    private usuario usuario; // Cambiar el tipo de dato de String a usuario
 
-    public producto () {
+
+    public producto() {
 
     }
 
-    public producto(Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad, com.proyecto.ecommerce.springecommerce.model.usuario usuario) {
+    public producto(Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad, usuario usuario) { // Cambiar el tipo de dato de String a usuario
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -79,14 +80,13 @@ public class producto {
         this.cantidad = cantidad;
     }
 
-    public com.proyecto.ecommerce.springecommerce.model.usuario getUsuario() {
+    public usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
+    public void setUsuario(usuario usuario) {
         this.usuario = usuario;
     }
-
 
 
     @Override
