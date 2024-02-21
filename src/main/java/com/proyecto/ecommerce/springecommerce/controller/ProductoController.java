@@ -40,16 +40,13 @@ public class ProductoController {
     }
 
     @PostMapping("/save")
-    public String save(producto producto) throws IOException {
+    public String save(producto producto, @RequestParam("img") MultipartFile file  ) throws IOException {
         LOGGER.info("Este es el objeto producto {}", producto);
-
         usuario u = new usuario(1,"","","","","","","");
         producto.setUsuario(u);
 
         //imagen
-
-        if (producto.getId() == null){ // cuando se crea un producto
-            MultipartFile file = null;
+        if (producto.getId()==null){ // cuando se crea un producto
             String nombreImagen = upload.saveImage(file);
             producto.setImagen(nombreImagen);
         }else {
