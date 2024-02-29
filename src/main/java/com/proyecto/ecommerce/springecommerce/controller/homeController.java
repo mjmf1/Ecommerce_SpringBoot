@@ -4,6 +4,8 @@ import com.proyecto.ecommerce.springecommerce.model.DetalleOrden;
 import com.proyecto.ecommerce.springecommerce.model.Orden;
 import com.proyecto.ecommerce.springecommerce.model.producto;
 import com.proyecto.ecommerce.springecommerce.model.usuario;
+import com.proyecto.ecommerce.springecommerce.service.IDetalleOrdenService;
+import com.proyecto.ecommerce.springecommerce.service.IOrdenService;
 import com.proyecto.ecommerce.springecommerce.service.IUsuarioService;
 import com.proyecto.ecommerce.springecommerce.service.ProductoService;
 import org.slf4j.Logger;
@@ -13,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +30,13 @@ public class homeController {
     private ProductoService productoService;
     @Autowired
     private IUsuarioService usuarioService;
+
+    @Autowired
+    private IOrdenService ordenService;
+
+    @Autowired
+    IDetalleOrdenService detalleOrdenService;
+
 
     //Esto es para almacenar los detalles de la orden
     List<DetalleOrden> detalles = new ArrayList<DetalleOrden>();
@@ -125,5 +136,32 @@ public class homeController {
         model.addAttribute("usuario", usuario);
 
         return "usuario/resumenorden";
+    }
+    //Guardar la orden
+    @GetMapping("/saveOrder")
+    public String saveOrder(){
+        Date fechaCreacion = new Date();
+        orden.setFechaCreacion(fechaCreacion);
+        orden.setNumero(ordenService.generarNumeroOrden());
+
+        //Usuario
+        usuario usuario = usuarioService.findById(1).get();
+
+        orden.setUsuario(usuario);
+        ordenService.save(orden);
+
+        //Guardar Detalles
+        for (DetalleOrden dt:detalles) {
+            dt.setOrden(orden);
+            detalleOrdenService.save(dt);
+
+        }
+        //Limpiar lista y orden
+
+        orden = new Orden();
+        detalles.clear();
+
+        return "redirect:/";
+
     }
 }

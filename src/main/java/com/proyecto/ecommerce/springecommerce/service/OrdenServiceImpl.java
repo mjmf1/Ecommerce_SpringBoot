@@ -3,6 +3,7 @@ package com.proyecto.ecommerce.springecommerce.service;
 import com.proyecto.ecommerce.springecommerce.model.Orden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.proyecto.ecommerce.springecommerce.repository.IOrdenRepository;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Service
 public class OrdenServiceImpl implements IOrdenService {
     @Autowired
-    private IOrdenService ordenRepository;
+    private IOrdenRepository ordenRepository;
 
     @Override
     public Orden save(Orden orden) {
