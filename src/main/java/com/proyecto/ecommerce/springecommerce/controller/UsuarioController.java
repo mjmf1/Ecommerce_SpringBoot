@@ -31,7 +31,11 @@ public class UsuarioController {
         logger.info("Usuario registro: {}", usuario);
         usuario.setTipo("USER");
         usuarioService.save(usuario);
+        return "redirect:/";
+    }
 
-    return "redirect:/";
+    @GetMapping("/login")
+    public String login(){
+        return "usuario/login";
     }
 }
