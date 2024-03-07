@@ -2,6 +2,7 @@ package com.proyecto.ecommerce.springecommerce.controller;
 
 import com.proyecto.ecommerce.springecommerce.model.usuario;
 import com.proyecto.ecommerce.springecommerce.service.IUsuarioService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.slf4j.Logger;
 
+import java.util.Optional;
 
 
 @Controller
@@ -37,5 +39,25 @@ public class UsuarioController {
     @GetMapping("/login")
     public String login(){
         return "usuario/login";
+    }
+    @PostMapping("/acceder")
+    public String acceder(usuario usuario , HttpSession session){
+        logger.info("Accesos : {}", usuario);
+
+        Optional<usuario> user =usuarioService.findByEmail(usuario.getEmail());
+        //logger.info("usuario de db: {}", user.get());
+
+        if (user.isPresent()){
+            session.setAttribute("idusuario", user.get().getId());
+            if (user.get().getTipo().equals("ADMIN")){
+                return "redirect:/admin";
+            }else{
+                return "redirect:/";
+            }
+        }else {
+            logger.info("usuario de no existe");
+        }
+
+        return "redirect:/";
     }
 }
