@@ -24,7 +24,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public Optional<usuario> findByEmail(String email) {
-        return Optional.empty();
+        return usuarioRepository.findByEmail(email);
     }
 }
 
