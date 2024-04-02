@@ -52,7 +52,7 @@ public class homeController {
 
         model.addAttribute("productos", productoService.findAll());
 
-        //Sesion
+        //Session
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
         return "usuario/home";
