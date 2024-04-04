@@ -44,10 +44,11 @@ public class UsuarioController {
     }
     @PostMapping("/acceder")
     public String acceder(usuario usuario , HttpSession session){
-        logger.info("Accesos : {}", usuario);
 
         Optional<usuario> user =usuarioService.findByEmail(usuario.getEmail());
-        //logger.info("usuario de db: {}", user.get());
+        logger.info("usuario de db: {}", user.get());
+
+
 
         if (user.isPresent()){
             session.setAttribute("idusuario", user.get().getId());
