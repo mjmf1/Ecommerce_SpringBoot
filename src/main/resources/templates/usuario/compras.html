@@ -11,6 +11,7 @@
   <title>Spring eCommerce</title>
 
 
+
   <!-- Bootstrap core CSS -->
   <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
@@ -22,10 +23,10 @@
 <body>
 
 <!-- Navigation -->
-<div th:include = "admin/template_admin.html:: header-user" th:if="@{sesion==null}"></div>
+<div th:include = "usuario/template_usuario.html:: header" th:if="${sesion==null}"></div>
 
 <!-- Navigation -->
-<div th:include = "admin/template_admin.html:: header" th:unless="@{sesion==null}"></div>
+<div th:include = "usuario/template_usuario.html:: header-user" th:unless="${sesion==null}"></div>
 
     <!-- Page Content -->
     <div class="container">
@@ -71,12 +72,12 @@
   </div>
   <!-- /.container -->
 
-<!-- Footer -->
-<div th:include = "usuario/template_usuario.html::footer"></div>
+  <!-- Footer -->
+  <div th:include = "usuario/template_usuario.html::footer"></div>
 
-<!-- Bootstrap core JavaScript -->
-<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
 </body>
 
