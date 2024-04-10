@@ -1,5 +1,6 @@
 package com.proyecto.ecommerce.springecommerce.controller;
 
+import com.proyecto.ecommerce.springecommerce.service.IUsuarioService;
 import com.proyecto.ecommerce.springecommerce.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +18,20 @@ public class AdminController {
     @Autowired
     private ProductoService productoService;
 
+    @Autowired
+    private IUsuarioService usuarioService;
+
     @GetMapping("")
     public String home( Model model) {
         List<producto> productos = productoService.findAll();
         model.addAttribute("productos", productos);
 
         return "admin/home";
+    }
+    @GetMapping("/usuarios")
+    public String usuarios( Model model){
+        model.addAttribute("usuarios", usuarioService.findAll());
+        return "admin/usuarios";
     }
 }
 
